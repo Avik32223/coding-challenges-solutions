@@ -1,5 +1,5 @@
 package heap
 
 type Node interface {
-	Val() int
+	Compare(Node) int
 }

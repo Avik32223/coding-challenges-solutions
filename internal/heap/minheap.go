@@ -42,7 +42,7 @@ func (m *MinHeap) Extract() (Node, error) {
 }
 
 func (m *MinHeap) heapifyUp(idx int) {
-	for m.nodes[m.parent(idx)].Val() > m.nodes[idx].Val() {
+	for m.nodes[m.parent(idx)].Compare(m.nodes[idx]) == 1 {
 		m.swap(m.parent(idx), idx)
 		idx = m.parent(idx)
 	}
@@ -56,12 +56,12 @@ func (m *MinHeap) heapifyDown(idx int) {
 		var c int
 		if l == t {
 			c = l
-		} else if m.nodes[l].Val() < m.nodes[r].Val() {
+		} else if m.nodes[l].Compare(m.nodes[r]) == -1 {
 			c = l
 		} else {
 			c = r
 		}
-		if m.nodes[idx].Val() > m.nodes[c].Val() {
+		if m.nodes[idx].Compare(m.nodes[c]) == 1 {
 			m.swap(idx, c)
 			idx = c
 			l, r = m.left(idx), m.right(idx)

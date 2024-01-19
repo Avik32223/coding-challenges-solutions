@@ -20,6 +20,18 @@ type HuffmanTreeNode struct {
 	right  *HuffmanTreeNode
 }
 
+func (h HuffmanTreeNode) Compare(c heap.Node) int {
+	if ch, ok := c.(HuffmanTreeNode); ok {
+		if h.weight > ch.weight {
+			return 1
+		} else if h.weight < ch.weight {
+			return -1
+		} else {
+			return 0
+		}
+	}
+	return 0
+}
 func (h HuffmanTreeNode) Val() int {
 	return h.weight
 }
@@ -178,7 +190,7 @@ func (h *HuffmanCode) Encode(s string) ([]byte, error) {
 		aa := a.(HuffmanTreeNode)
 		bb := b.(HuffmanTreeNode)
 		c := HuffmanTreeNode{
-			weight: a.Val() + b.Val(),
+			weight: aa.Val() + bb.Val(),
 			left:   &aa,
 			right:  &bb,
 		}
